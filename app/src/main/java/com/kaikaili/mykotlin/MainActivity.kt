@@ -2,6 +2,7 @@ package com.kaikaili.mykotlin
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import java.io.File
 
@@ -15,16 +16,50 @@ class MainActivity : AppCompatActivity() {
 
         val textView: TextView = findViewById(R.id.content_text_view);
         val value : Int = 5;
+        //val nullInt: Int = null;
         textView.text = "Value is ${value}";
+
+        //val a: Int? = 1 // 一个装箱的 Int (java.lang.Integer)
+        //val b: Long? = a // 隐式转换产生一个装箱的 Long (java.lang.Long)
+        //print(b == a) // 惊！这将输出“false”鉴于 Long 的 equals() 会检测另一个是否也为 Long
+
+        val nullStr : String? = null
+        if (nullStr != null) {
+            nullStr.length
+        }
+
+        val valStr : String;
+        valStr = "1"
+        //valStr = "2"
+        //nullStr!!.length
+
+        //var nullValue : Int = testNull(5)
 
         var fileTable: FileTable?;
 
         var rangeClose = 3..5
-        var j : Int = 0;
+        Log.d("my_kotlin", "rangeClose is $rangeClose")
         for (i in rangeClose) {
-            j += i;
+            print(i)  // 3,4,5
         }
 
+        var rangeHalf = 3 until 5
+        for (i in rangeHalf) {
+            print(i) // 3,4
+        }
+
+        var rangeDown = 5 downTo 3
+        for (i in rangeDown) {
+            print(i) // 5,4,3
+            Log.d("my_kotlin", "i=$i")
+        }
+
+        var rangeStep = 3..7 step 2
+        for (i in rangeStep) {
+            print(i) // 3,5,7
+        }
+
+        var j : Int = 0;
         val nums = arrayOf(1, 2, 3);
         for (index in 0 until nums.size) {
             j += index;
@@ -34,6 +69,9 @@ class MainActivity : AppCompatActivity() {
 
         var p1 = Point(4, 10);
         var p2 = Point(5, 15);
+        for (i in p1..p2) {
+            println(i) //1,2,3
+        }
         var distance = p1 - p2;
         var area = p1 * p2;
         val minusView : TextView = findViewById(R.id.minus_text_view)
@@ -185,12 +223,24 @@ class MainActivity : AppCompatActivity() {
         is Int -> value
         else -> 0
     }
+
+    fun testNull(value : Int) : Int? {
+        if (value > 3) {
+            return null;
+        }
+
+        return 123
+    }
 }
 
 data class Point(val x: Int, val y: Int) {
     operator fun minus(target: Point) : Double {
         return Math.hypot((this.x - target.x).toDouble(),
             (this.y - target.y).toDouble());
+    }
+
+    operator fun rangeTo(target: Point) : IntRange {
+        return IntRange(1, 3)
     }
 }
 

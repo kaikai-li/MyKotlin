@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyKotlin</string>
+    <string name="kotlin_interesting_team">Kotlin兴趣小组</string>
+    <string name="age_result_str">小明是%1$s</string>
 </resources>
